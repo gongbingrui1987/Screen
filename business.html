@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>图形监控系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <link href="./css/reset.css" type="text/css" rel="stylesheet">
+    <link href="./css/index.css" type="text/css" rel="stylesheet">
+    <link href="./css/performanceIndex_1.css" type="text/css" rel="stylesheet">
+</head>
+<body style="overflow:hidden;">
+<!--        主页内容-->
+<section>
+    <article>
+        <header class="header">
+            <div class="header_title telNum ">话务量&nbsp;</div>
+            <div class="header_title flow active">流量&nbsp;&nbsp;</div>
+            <div class="header_title userNum">用户数&nbsp;</div>
+            业务量
+            <div class="header_deadline">截至<b  id="current_time">13日11:00&nbsp;&nbsp;</b></div>
+        </header>
+        <div class="performance_page" style="position: absolute;z-index: 100;">
+            <ul class="performance_title">
+                <li><p class="active">全省</p></li>
+                <li><p>太原</p></li>
+                <li><p>大同</p></li>
+                <li><p>忻州</p></li>
+                <li><p>晋城</p></li>
+                <li><p>朔州</p></li>
+                <li><p>运城</p></li>
+                <li><p>临汾</p></li>
+                <li><p>吕梁</p></li>
+                <li><p>阳泉</p></li>
+                <li><p>长治</p></li>
+                <li><p>晋中</p></li>
+            </ul>
+        </div>
+        <div class="business_left" style="margin-top: 70px;">
+            <div class="business_list">
+                <ul>
+                    <li style="clear: both;">
+                        <div class="business_list_bg">
+                            <div id="performance_list_title3" class="performance_list_title">短信量</div>
+                            <div id="performance_list_current3" class="performance_list_title2">当前累计值<font  class="performance_list_current"></font></div>
+
+                        </div>
+                        <div id="canvasDiv3" class="canvas"></div>
+                        <div id="div_x_line3" class="div_x_line"  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 12px;color: #ffffff;"></div>
+                        <div id="flags3" style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 3.8%;">
+                            <table style="width:437px;color:#ffffff;margin-left:130px;">
+                                <tr>
+                                    <td style=width:60px;height:21px;">当前值</td>
+                                    <td style=width:60px;height:21px;"><div style="background-color:#<%=colors[0]%>;width:25px;height:18px;"></div></td>
+                                    <td style=width:70px;height:21px;">上周同期</td>
+                                    <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li style="clear: both;">
+                        <div class="business_list_bg">
+                            <div id="performance_list_title1" class="performance_list_title">GSM话务量</div>
+                            <div id="performance_list_current1" class="performance_list_title2">当前累计值<font   class="performance_list_current"></font></div>
+
+                        </div>
+                        <div id="canvasDiv1" class="canvas"></div>
+                        <div id="div_x_line1" class="div_x_line"  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 12px;color: #ffffff;"></div>
+                        <div id="flags1" style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 3.8%;">
+                            <table style="width:437px;color:#ffffff;margin-left:130px;">
+                                <tr>
+                                    <td style=width:60px;height:21px;">当前值</td>
+                                    <td style=width:60px;height:21px;"><div style="background-color:#<%=colors[1]%>;width:25px;height:18px;"></div></td>
+                                    <td style=width:70px;height:21px;">上周同期</td>
+                                    <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="business_middle" style="margin-top: 70px;">
+            <div class="business_count">
+                <h1 id="today_leiji" class="business_count_h1">当天累计值</h1>
+                <h2 class="business_count_h2">截至<b id="current_time_1">13日11:00</b></h2>
+                <p class="business_count_p" id="today_value">2546</p>
+
+                <h1 id="mainTitle" class="business_count_title">总话务量
+                    <div class="maintitle_tile"></div>
+                </h1>
+                <h1  class="business_count_h3"><label id="week_leiji" style="width:250px;">较上周</label><font id="week_rate"></font></h1>
+                <h1  class="business_count_h4"><label id="month_leiji" style="width:250px;">较去年</label><font id="month_rate"></font></h1>
+                <div class="business_count_div">上月均值<b id="arvg_month">2546</b></div>
+                <div class="business_count_div" style="margin-left: 46%;text-align: right;">去年均值<b id="arvg_year">2546</b></div>
+            </div>
+            <div class="business_chart">
+                <div id="canvasDiv0" class="business_center canvas"></div>
+                <div class="div_x_big_line"  id="div_x_big_line" style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 12px;color: #ffffff;"></div>
+                <div id="flags" style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 3.8%;">
+                    <table style="width:437px;color:#ffffff;margin-left:130px;">
+                        <tr>
+                            <td style=width:60px;height:21px;">当前值</td>
+                            <td style=width:60px;height:21px;"><div style="background-color:#<%=colors[2]%>;width:25px;height:18px;"></div></td>
+                            <td style=width:70px;height:21px;">上周同期</td>
+                            <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                            <td style=width:60px;height:21px;"></td>
+                            <td style=width:60px;height:21px;"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="business_right" style="margin-top: 70px;">
+            <div class="business_list">
+                <ul>
+                    <li style="clear: both;">
+                        <div class="business_list_bg">
+                            <div id="performance_list_title4" class="performance_list_title">彩信量</div>
+                            <div id="performance_list_current4"  class="performance_list_title2">当前累计值<font class="performance_list_current"></font></div>
+
+                        </div>
+                        <div id="canvasDiv4" class="canvas"></div>
+                        <div id="div_x_line4" class="div_x_line"  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 12px;color: #ffffff;"></div>
+                        <div id="flags4" style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 3.8%;">
+                            <table style="width:437px;color:#ffffff;margin-left:130px;">
+                                <tr>
+                                    <td style=width:60px;height:21px;">当前值</td>
+                                    <td style=width:60px;height:21px;"><div style="background-color:#<%=colors[3]%>;width:25px;height:18px;"></div></td>
+                                    <td style=width:70px;height:21px;">上周同期</td>
+                                    <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li style="clear: both;">
+                        <div class="business_list_bg">
+                            <div id="performance_list_title2" class="performance_list_title">TD话务量</div>
+                            <div id="performance_list_current2" class="performance_list_title2">当前累计值<font class="performance_list_current"></font></div>
+
+                        </div>
+                        <div id="canvasDiv2" class="canvas"></div>
+                        <div id="div_x_line2" class="div_x_line"  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 12px;color: #ffffff;"></div>
+                        <div id="flags2" style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 3.8%;">
+                            <table style="width:437px;color:#ffffff;margin-left:130px;">
+                                <tr>
+                                    <td style=width:60px;height:21px;">当前值</td>
+                                    <td style=width:60px;height:21px;"><div style="background-color:#<%=colors[4]%>;width:25px;height:18px;"></div></td>
+                                    <td style=width:70px;height:21px;">上周同期</td>
+                                    <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                    <td style=width:60px;height:21px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </article>
+</section>
+<script defer="defer" src="./js/ichart.latest.min.js"></script>
+<script defer="defer" src="./js/mychart.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/fusioncharts_1.js"></script>
+<script defer="defer" >
+    window.onload = function(){
+        var d = new Date();
+
+        function clearBtn(){
+            document.querySelector('.telNum').className = 'header_title telNum';
+            document.querySelector('.flow').className = 'header_title flow';
+            document.querySelector('.userNum').className = 'header_title userNum';
+        }
+
+        //话务量调用事件
+        document.querySelector('.telNum').addEventListener('click',function(e){
+            //alert('话务量')//不用请注释掉
+
+            if(this.className.indexOf('active')>-1){
+                return
+            } else{
+                clearBtn();
+                this.className += ' active';
+            }
+            var active = document.querySelector('.performance_title p.active');
+
+            changeType('hwl',active.textContent);
+            changeType('duanxin',active.textContent);
+            changeType('caixin',active.textContent);
+        });
+
+        //流量调用事件
+        document.querySelector('.flow').addEventListener('click',function(e){
+            //alert('流量')//不用请注释掉
+            //refreshChart();
+            if(this.className.indexOf('active')>-1){
+                return
+            } else{
+                clearBtn();
+                this.className += ' active';
+                var active = document.querySelector('.performance_title p.active');
+
+                changeType('liuliang',active.textContent);
+
+            }
+        });
+
+        //用户数调用事件
+        document.querySelector('.userNum').addEventListener('click',function(e){
+            //alert('用户数')//不用请注释掉
+            //refreshChart();
+            if(this.className.indexOf('active')>-1){
+                return
+            } else{
+                clearBtn();
+                this.className += ' active';
+                var active = document.querySelector('.performance_title p.active');
+                changeType('userCnt',active.textContent);
+            }
+        });
+
+        var title = document.querySelector('.performance_title');
+        title.addEventListener('click',function(e){
+            var target = e.target;
+            if(target.nodeName.toLowerCase()=='p'&&target.className !=='active'){
+                var active = document.querySelector('.performance_title p.active');
+                if(active){
+                    target.className = 'active';
+                    active.className = '';
+                    if(document.querySelector('.telNum').className == 'header_title telNum active'){
+
+                        changeType('hwl',target.textContent);
+                        changeType('duanxin',target.textContent);
+                        changeType('caixin',target.textContent);
+
+                    }else if(document.querySelector('.flow').className == 'header_title flow active'){
+
+                        changeType('liuliang',target.textContent);
+                    }else if(document.querySelector('.userNum').className == 'header_title userNum active'){
+
+                        changeType('userCnt',target.textContent);
+                    }
+                }
+            }
+        });
+
+
+        var labels = ["0","2","4","6","8","10","12","14","18","20","22"];//x值 测试数据
+
+
+
+        var st = document.querySelectorAll('.canvas div');
+        for(var i=0;i<st.length;i++) st[i].style.position=null;
+        //changeType('duanxin','全省');
+        //changeType('caixin','全省');
+        //changeType('hwl','全省');
+        changeType('liuliang','全省');
+
+        /*修改js修改数据 可以解除注释测试一下*/
+        /*charts[0].load([
+         {
+         name : '去年',
+         value:[8,2,15,4,12,33,12,11,324,41,22],
+         color:'#1385a5'
+         },
+         {
+         name : '当前',
+         value:[10,14,16,14,15,33,12,11,324,41,22],
+         color:'#c56966'
+         },{
+         name : '标准',
+         value:[7,15,10,10,10,13,13,20,12,12,22],
+         color:'#111111'
+         }
+         ]);*/
+
+    };
+
+    /*刷新页面大小*/
+    function refresh(){
+        var divs = document.querySelectorAll('.canvas');
+        for(var i=0;i<divs.length;i++){
+            charts[i].resize(divs[i].clientWidth,divs[i].clientHeight);
+        }
+    }
+
+    var isResize = false;
+    window.onresize=function(){
+        if(!isResize){
+            isResize = !isResize;
+        }else{
+            return;
+        }
+        setTimeout(function(){refresh();isResize=false;},2000);
+    }
+
+    function changeType(type,cityValue){
+        //performance_list_content
+
+        var time = 500;
+
+        //
+        $.ajax({
+            url: "jsonhuawu!returnMap.action",
+            type: 'POST',
+            data: {
+                type: type,
+                city: cityValue
+            },
+            success: function (data) {
+                var type_names = data.item_names;
+                $.each(data.kpiMap,function(key,value){
+                    if(key==type && key!="duanxin" && key!="caixin"){
+
+                        document.getElementById("today_value").innerHTML=value[0];
+
+                        var flag_image = "";
+
+                        if(value[1]!= null && value[1].substring(0,1) == '-')
+                        {
+                            flag_image = "<img src='images/down.gif' style='vertical-align: middle;'/>&nbsp;";
+                        }
+                        else
+                        {
+                            flag_image = "<img src='images/up.gif' style='vertical-align: middle;'/>&nbsp;";
+                        }
+
+                        document.getElementById("week_rate").innerHTML=flag_image+value[1];
+                        document.getElementById("arvg_month").innerHTML=value[2];
+                        document.getElementById("arvg_year").innerHTML=value[3];
+
+                        if(value[4]!= null && value[4].substring(0,1) == '-')
+                        {
+                            flag_image = "<img src='images/down.gif' style='vertical-align: middle;'/>&nbsp;";
+                        }
+                        else
+                        {
+                            flag_image = "<img src='images/up.gif' style='vertical-align: middle;'/>&nbsp;";
+                        }
+
+                        document.getElementById("month_rate").innerHTML=flag_image+value[4];
+
+                    }else{
+                        var no = value[0];
+                        var xlabels = value[1];
+                        var dataXml = value[2];
+                        var colorValue = value[3];
+                        var title = value[4];
+                        var xlabelsArr = xlabels.split(",");
+                        var tdstrs = "";
+
+                        var unit ="";
+
+                        if(title == "GSM+TD")
+                        {
+                            title = "GSM+TD+VoLTE";
+                        }
+
+                        if(key.indexOf("用户") > 0 || key.indexOf("彩信") >= 0)
+                        {
+                            unit = "日";
+                        }
+                        else
+                        {
+                            unit = "时";
+                        }
+                        for(var i=0;i<xlabelsArr.length;i++)
+                        {
+                            tdstrs = tdstrs+"<td>"+xlabelsArr[i]+unit+"</td><td></td>";
+                        }
+
+                        var towname = "上周同期";
+                        var threename = "上月同期";
+
+                        if(key.indexOf("用户")>=0){
+                            towname= "上月同期";
+                            threename = "去年同期";
+                            document.getElementById("today_leiji").innerHTML="当天值";
+                            document.getElementById('week_leiji').innerHTML="较上周";
+                            document.getElementById('month_leiji').innerHTML="较去年";
+                            //document.getElementById("week_leiji").innerHTML="与上周同期相比";
+                            //week_rate_leiji
+                        }else{
+                            document.getElementById("today_leiji").innerHTML="当日累计值";
+                            document.getElementById('week_leiji').innerHTML="较上周";
+                            document.getElementById('month_leiji').innerHTML="较去年";
+                        }
+
+
+                        if(no=="0" && (key!="短信量" || key!="彩信量" )){
+
+
+                            document.getElementById("flags").innerHTML ="<table style=\"width:437px;color:#ffffff;margin-left:50px;\">"
+                                +"<tr>"
+                                +"<td style=width:60px;height:21px;\">当前值</td>"
+                                +"<td style=width:60px;height:21px;\"><div style=\"background-color:"+colorValue.split(",")[0]+";width:25px;height:18px;\"></div></td>"
+                                +"<td style=width:70px;height:21px;\">"+towname+"</td>"
+                                +"<td style=width:60px;height:21px;\"><div><img src=\"images/line_icon.png\"/></div></td>"
+                                +"<td style=width:60px;height:21px;\">"+threename+"</td>"
+                                +"<td style=width:60px;height:21px;\"><div><img src=\"images/line_icon_5.png\"/></div></td>"
+                                +"</tr>"
+                                +"</table>";
+                            document.getElementById("mainTitle").innerHTML = "<div margin-top:30px>"+key+"</div><div  class=\"maintitle_tile\">"+title+"</div>";
+                            var tablestr = "<table style=\"width:670px;margin-left:-10px;color:#ffffff;\"><tr>";
+                            tablestr = tablestr + tdstrs+"</tr></table>";
+                            document.getElementById("div_x_big_line").innerHTML=tablestr;;
+                            var d = new Date();
+                            if(key.indexOf("用户")>=0)
+                            {
+                                document.getElementById("current_time_1").innerHTML = d.getDate()-1+"日";
+                                document.getElementById("current_time").innerHTML = d.getDate()-1+"日";
+                            }
+                            else
+                            {
+                                document.getElementById("current_time_1").innerHTML = d.getDate()+"日"+xlabelsArr[xlabelsArr.length-1]+":00";
+                                document.getElementById("current_time").innerHTML = d.getDate()+"日"+xlabelsArr[xlabelsArr.length-1]+":00";
+                            }
+                        }
+                        else
+                        {
+                            document.getElementById("flags"+no).innerHTML ="<table style=\"width:437px;color:#ffffff;margin-left:50px;\">"
+                                +"<tr>"
+                                +"<td style=width:60px;height:21px;\">当前值</td>"
+                                +"<td style=width:60px;height:21px;\"><div style=\"background-color:"+colorValue.split(",")[0]+";width:25px;height:18px;\"></div></td>"
+                                +"<td style=width:70px;height:21px;\">"+towname+"</td>"
+                                +"<td style=width:60px;height:21px;\"><div><img src=\"images/line_icon.png\"/></div></td>"
+                                +"<td style=width:60px;height:21px;\">"+threename+"</td>"
+                                +"<td style=width:60px;height:21px;\"><div><img src=\"images/line_icon_5.png\"/></div></td>"
+                                +"</tr>"
+                                +"</table>";
+
+                            if(key == "WLAN峰值用户数")
+                            {
+                                key = "VoLTE用户数";
+                            }
+                            else if(key == "GSM话务量")
+                            {
+                                key = "GSM+TD话务量";
+                            }
+                            else if(key == "TD话务量")
+                            {
+                                key = "VoLTE话务量";
+                            }
+                            else if(key == "GSM用户数")
+                            {
+                                key = "固网宽带用户数";
+                            }
+                            //else if(key == "TD用户数")
+                            //{
+                            //key = "固网宽带用户数";
+                            //}
+
+                            document.getElementById("performance_list_title"+no).innerHTML=key;
+                            var tablestr = "<table style=\"width:360px;margin-left:100px;color:#ffffff;\"><tr>";
+                            tablestr = tablestr + tdstrs+"</tr></table>";
+                            document.getElementById("div_x_line"+no).innerHTML=tablestr;
+                        }
+                        if(key.indexOf("总")<0 && key.indexOf("VLR")<0){
+
+                            document.getElementById("performance_list_current"+no).innerHTML = "当前累计值<font class='performance_list_current'>"+value[value.length-3]+"</font>&nbsp;较上周"+createFontValue(value[value.length-2])+"&nbsp;较去年"+createFontValue(value[value.length-1])+"";
+
+                            if(no == "4" || no == "2" || no == "3")
+                            {
+                                $("#performance_list_current"+no).css("margin-left","32%");
+                            }
+                            else
+                            {
+                                $("#performance_list_current"+no).css("margin-left","34%");
+                            }
+
+                        }
+                        creatChart(dataXml,document.getElementById("canvasDiv"+no),no);
+
+                    }
+                });
+            }
+        });
+    }
+
+    function createFontValue(value)
+    {
+        var num =  parseInt(value);
+
+        if(num>=0)
+        {
+            return "<font class='performance_list_current' style='color:#00ff00;'>"+value+"</font>";
+        }
+        else
+        {
+            return "<font class='performance_list_current'  style='color:#ff0000;'>"+value+"</font>";
+        }
+    }
+
+    function creatChart(dataXml,div,index){
+        var chart = new FusionCharts("MSColumnLine3D.swf", "canvasDivChartId"+index, "100%", "100%", "0", "1", "FFFFFF", "exactFit");
+        chart.setDataXML(dataXml);
+        chart.render(div);
+        $("svg").css("background-color","");
+    }
+
+    function refrash(){
+
+        var active = document.querySelector('.performance_title p.active');
+
+        if(document.querySelector('.telNum').className == 'header_title telNum active'){
+
+            changeType('hwl',active.textContent);
+            changeType('duanxin',active.textContent);
+            changeType('caixin',active.textContent);
+
+        }else if(document.querySelector('.flow').className == 'header_title flow active'){
+
+            changeType('liuliang',active.textContent);
+        }else if(document.querySelector('.userNum').className == 'header_title userNum active'){
+
+            changeType('userCnt',active.textContent);
+        }
+    }
+
+    //setInterval("refrash()",180000);
+
+</script>
+</body>
+</html>

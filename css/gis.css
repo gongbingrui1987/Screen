@@ -1,0 +1,91 @@
+
+.gis_content{
+	margin-top: 10%;
+	display: inline-block;
+	height: 86%;
+	background: #299;
+	margin-left: -5px;
+	position: absolute;
+}
+
+.gis_content:first-child{
+	margin-left: 0;
+}
+
+.list_item{
+	display: block;
+	width: 100%;
+	height: calc(100%/3);
+}
+
+.list_item>p{
+	margin-left: 2%;
+	color: #666699;
+	line-height: 30px;
+	height: 29%;
+	display: block;
+}
+.list_item>div{
+	background: #666699;
+	width: 100%;
+	height: 70%;
+	display: block;
+}
+
+.gis_box{
+	height: 23%;
+	width: 100%;
+	background: #666699;
+	border-radius: 5px;
+	position: absolute;
+	display: block;
+}
+.gis_box:last-child{
+	margin-bottom: 0;
+}
+
+.gis_box_name{
+	padding-top: 90%;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-size: 9px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.gis_box_info{
+	width: 100%;
+	text-align: center;
+	color: #e7f5ff;
+	font-size: 9px;
+	overflow: hidden;
+	white-space: nowrap;
+	margin-top: 5px;
+}
+
+.gis_map{
+	width: 98%;
+	height: 98%;
+	margin: 1%;
+	border-radius: 5px;
+	background: #666699;
+}
+
+.gis_box2{
+	margin: 1%;
+	width: 98%;
+	height:98%;
+}
+.gis_box2>li{
+	height: 12%;
+	margin-top: 6%;
+	width: 100%;
+	background: #666699;
+	border-radius: 5px;
+}
+
+.gis_box2>li:first-child{
+	height: 20%;
+	margin-bottom: 1%;
+}

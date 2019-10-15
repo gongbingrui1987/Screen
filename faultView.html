@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>图形监控系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <link href="./css/reset.css" type="text/css" rel="stylesheet">
+    <link href="./css/index.css" type="text/css" rel="stylesheet">
+    <link href="./css/faultView.css" type="text/css" rel="stylesheet">
+    <link href="./css/reveal.css" type="text/css" rel="stylesheet">
+    <link href="./css/showLoading.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+
+
+        .tpye1_span{
+            display: block;
+            margin-right: 30px;
+            font-family: '微软雅黑';
+            color:#ffffff;
+            margin-top: 15px;
+            font-weight: bold;
+            letter-spacing: 5;
+            font-size: 17;
+        }
+
+        .tpye2_span{
+            float: left;
+            display: block;
+            margin-right: 30px;
+            font-family: '微软雅黑';
+            color:#ffffff;
+            margin-top: 9px;
+            font-size: 17;
+            font-weight: bold;
+            margin-right: 100px;
+        }
+
+        .tpye3_span{
+            display: block;
+            margin-right: 30px;
+            font-family: '微软雅黑';
+            color:#ffffff;
+            margin-top: 9px;
+            font-size: 18;
+            font-weight: bold;
+        }
+
+        .specialty_table{
+
+            font-family: '微软雅黑';
+            color:#ffffff;
+            font-size: 15;
+            font-weight: bold;
+        }
+
+        .specialty_table th,td{
+
+            padding-right: 10px;
+            height:50px;
+        }
+
+        .common_value
+        {
+            color:#FFD700;
+        }
+
+        .ratio_value
+        {
+            color:#FF0000;
+        }
+
+        .ratio_value_minu
+        {
+            color:#B3EE3A;
+        }
+
+    </style>
+</head>
+<body style="overflow:hidden;">
+<!--        主页内容-->
+<section>
+    <article class="left1 difothe_bei">
+        <header style="height: 60px;">
+            <div style="font-size: 15px;line-height: 37px;color: #f8fb00;font-weight: bold;margin-left: 53%;margin-top: 2.2%;"><b id="current_time">&nbsp;&nbsp;</b></div>
+        </header>
+
+        <ul class="fault_left">
+
+        </ul>
+        <div class="fault_right">
+            <object type="application/x-shockwave-flash" id="FaultView" name="FaultView" align="middle" data="FaultView.swf" width="123%" height="100%"><param name="quality" value="high"><param name="bgcolor" value="#ffffff"><param name="allowscriptaccess" value="sameDomain"><param name="wmode" value="transparent"><param name="allowfullscreen" value="true"></object>
+        </div>
+        <form id="openWindow" target="_blank" action=""></form>
+        <div id="myModal" class="reveal-modal">
+            <div style="height:532px;width: 1050px;">
+                <img style="position: absolute;top: 0;left: 0; width:100%;height:100%" src="./images/fault_item.jpg"/>
+                <div id="type_1" style="position: absolute; width:800px;height:210px;overflow:auto; top: 60;padding-left: 20%;font-size: 19;">
+
+                </div>
+                <div id="type_2" style="position: absolute; width:800px;height:230px;overflow:auto; top:360;padding-left: 20%;">
+
+                </div>
+            </div>
+        </div>
+        <a id="modal_click" href="#"  data-reveal-id="myModal" style="display: none;"></a>
+
+        <div id="specialtyModal" class="reveal-modal">
+            <div style="height:532px;width: 1050px;">
+                <img style="position: absolute;top: 0;left: 0; width:100%;height:100%;z-index: -1;" src="./images/specialty_item.jpg"/>
+                <div  style="width:100%;height:100%;overflow:auto; margin-top: 3%;">
+                    <table class="specialty_table" border="2" bordercolor="#ffffff" id="specialty_area" style="width:100%;margin-top: 35;">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <a id="specialtyModal_click" href="#"  data-reveal-id="specialtyModal" style="display: none;"></a>
+
+        <div id="all_province_area" style="position: absolute;width: 100px;height: 100%;top: 0;">
+            <img id="all_province_button" style=" cursor:hand;margin-top: 400px;left: -30px; position: absolute;" src="images/all_province.png" />
+        </div>
+    </article>
+</section>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.reveal.js"></script>
+<script src="js/jquery.showLoading.js"></script>
+<script defer="defer" >
+
+
+    $(document).ready(function(){
+        displayDate();
+        setInterval("displayDate()",60000);
+    });
+
+
+    function displayDate()
+    {
+        var d = new Date();
+        document.getElementById("current_time").innerHTML = d.getDate()+"日"+d.getHours()+"时"+d.getMinutes()+"分";
+    }
+
+    $("#all_province_area").mouseenter(function () {
+        $("#all_province_button").stop();
+        $("#all_province_button").animate({left:'0px'});
+    });
+
+
+    $("#all_province_area").mouseleave(function () {
+        $("#all_province_button").stop();
+        $("#all_province_button").animate({left:'-30px'});
+    });
+
+    $("#all_province_button").click(function () {
+        area_click(0);
+    });
+
+    function specialty_click(evt)
+    {
+        $("body").showLoading();
+
+        $.ajax({
+            url: "http://10.204.51.105:8090/LargeScreen/faultCityInfo",
+            type: 'GET',
+            data: {type: evt},
+            dataType: "json",
+            success: function (data) {
+                $("body").hideLoading();
+
+                var table_str = "<tr><th>故障名称</th><th>故障开始时间</th><th>故障级别</th><th>故障类型</th><th>处理措施</th><th>网络影响情况</th><th>业务影响情况</th><th>故障阶段进展</th><th>故障原因</th></tr>";
+
+                $.each(data,function(key,value)
+                {
+                    //if(value.fault_type ==evt || evt.indexOf(value.fault_type) > 0)
+                    {
+                        var handler_state="";
+                        var network_state ="";
+                        var business_state = "";
+                        var progress_state = "";
+                        var progress_time = "";
+                        var fault_reason = "";
+
+                        var sms = value.fault_sms_content;
+
+                        sms = sms.split("\n");
+
+                        for(var i=0;i<sms.length;i++)
+                        {
+                            if(sms[i].indexOf("处理情况") > 0 )
+                            {
+                                var index = sms[i].indexOf("【处理情况】");
+                                handler_state = sms[i].substring(index+6,sms[i].length);
+                            }
+
+                            if(sms[i].indexOf("网络影响情况") > 0 )
+                            {
+                                var index = sms[i].indexOf("【网络影响情况】");
+                                network_state = sms[i].substring(index+8,sms[i].length);
+                            }
+
+                            if(sms[i].indexOf("业务影响情况") > 0 )
+                            {
+                                var index = sms[i].indexOf("【业务影响情况】");
+                                business_state = sms[i].substring(index+8,sms[i].length);
+                            }
+
+                            if(sms[i].indexOf("阶段进展时间") > 0 )
+                            {
+                                var index = sms[i].indexOf("【阶段进展时间】");
+                                progress_time = sms[i].substring(index+8,sms[i].length);
+                            }
+
+                            if(sms[i].indexOf("故障进展情况") > 0 )
+                            {
+                                var index = sms[i].indexOf("【故障进展情况】");
+                                progress_state = sms[i].substring(index+8,sms[i].length);
+                            }
+
+                            if(sms[i].indexOf("故障原因") > 0 )
+                            {
+                                var index = sms[i].indexOf("【故障原因】");
+                                fault_reason = sms[i].substring(index+6,sms[i].length);
+                            }
+
+                        }
+
+                        var row = "<tr>";
+                        row +="<td style='width:20%;'>"+value.fault_name+"</td>";
+                        //	row +="<td>"+value.fault_type_no+"</td>";
+                        row +="<td>"+value.fault_occur_time+"</td>";
+                        row +="<td>"+get_fault_level(value.fault_level)+"</td>";
+                        row +="<td>"+get_fault_type(value.fault_type)+"</td>";
+                        row +="<td>"+handler_state+"</td>";
+                        row +="<td style='width:8%;'>"+network_state+"</td>";
+                        row +="<td style='width:8%;'>"+business_state+"</td>";
+                        row +="<td>"+progress_time+"\n"+progress_state+"\n"+"</td>";
+                        row +="<td style='width:8%;'>"+fault_reason+"</td>";
+                        row +="</tr>";
+
+                        table_str += row;
+                    }
+
+                });
+
+                $("#specialty_area").empty();
+
+                $("#specialty_area").append(table_str);
+
+                $("#specialtyModal_click").click();
+            }
+        });
+    }
+
+
+    function get_fault_type(evt)
+    {
+        switch(evt)
+        {
+            case "SX-GZ-JH":
+            case "SX-GZ-WX":
+                return "话音";
+            case "SX-GZ-YW":
+            case "SX-GZ-HL":
+            case "SX-GZ-CZ":
+                return "数据";
+            case "SX-GZ-CS":
+                return "传输";
+                break;
+            case "SX-GZ-WG":
+                return "网管";
+                break;
+            case "SX-ZX":
+                return "专线";
+                break;
+            case "SX-GZ-DH":
+                return "动环";
+                break;
+            case "SX-GZ-JK":
+                return "家客";
+                break;
+            case "SX-YJBZ":
+                return "应急保障";
+                break;
+        }
+    }
+
+    function get_fault_level(evt)
+    {
+        switch(evt)
+        {
+            case "R":
+                return "一级";
+                break;
+            case "O":
+                return "二级";
+                break;
+            case "Y":
+                return "三级";
+                break;
+            case "B":
+                return "四级";
+                break;
+        }
+    }
+
+
+    function area_click(evt)
+    {
+        $("body").showLoading();
+        $.ajax({
+            url: "http://10.204.51.85:8090/LargeScreenDataInterface/fault_view/list",
+            type: 'GET',
+            data: {city_index: evt},
+            dataType: "json",
+            success: function (data) {
+                $("body").hideLoading();
+                $("#type_1").empty();
+                $("#type_2").empty();
+
+
+                var type_1_str = "";
+                var type_2_str = "";
+                var map = {};
+                $.each(data,function(key,value)
+                {
+                    value.type_name = value.type_name.replace(/环比增幅/g, "环比");
+                    map[value.type_name] = value;
+                });
+
+                var d = new Date();
+                d.getFullYear();
+                document.getElementById("current_time").innerHTML = d.getDate()+"日"+d.getHours()+":00";
+
+                type_1_str +=  "<span class='tpye1_span'>【"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+"】 "+map["核心机房"].city_name.substr(0,2)+"</span>";
+
+                //var value = map["核心机房"];
+                //type_1_str += "<span class='tpye1_span'>"+value.city_name.substr(0,2)+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //value = map["全网关口局"];
+                //type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+(value.city_name=="全省"?value.type_name:value.type_name.replace("全网",""))+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //type_1_str += "</span>";
+
+                var value = map["全网关口局"];
+                type_1_str += "<span class='tpye1_span'>"+(value.city_name=="全省"?value.type_name:value.type_name.replace("全网",""))+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+
+                value = map["MGW"];
+
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+
+                value = map["MME"];
+
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+
+                value = map["SAE-GW"];
+
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+
+
+                type_1_str += "</span>";
+
+                //value = map["MSC"];
+                //type_1_str += "<span class='tpye1_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //value = map["MGW"];
+                //type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //value = map["SGSN"];
+                //type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //type_1_str += "</span>";
+
+                value = map["MSC"];
+                type_1_str += "<span class='tpye1_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+
+                value = map["BSC"];
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+
+
+                value = map["RNC"];
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+
+                type_1_str += "</span>";
+
+                value = map["BTS"];
+                type_1_str += "<span class='tpye1_span'>"+"2G基站"+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["nodeb"];
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;"+"3G基站"+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["Enodeb"];
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;"+"4G基站"+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_1_str += "</span>";
+
+                value = map["一干光缆"];
+                type_1_str += "<span class='tpye1_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["二干光缆"];
+                type_1_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_1_str += "</span>";
+
+                //value = map["全网关口局"];
+                //type_1_str += "<span class='tpye1_span'>"+(value.city_name=="全省"?value.type_name:value.type_name.replace("全网",""))+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //type_1_str += "</span>";
+
+                var disp_time = "";
+
+                if(d.getMinutes()>30)
+                {
+                    disp_time = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+(d.getHours()-2)+"时--"+(d.getHours()-1);
+                }
+                else
+                {
+                    disp_time = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "+(d.getHours()-3)+"时--"+(d.getHours()-2);
+                }
+
+                type_2_str += "<span class='tpye3_span'>【"+disp_time+"时】 "+map["核心机房"].city_name.substr(0,2)+"</span>";
+
+                value = map["VLR用户数"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["VLR用户数环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["LTE用户数"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["LTE用户数环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["长途话务量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["长途话务量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["GSM话务量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["GSM话务量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+
+                value = map["TD话务量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["TD话务量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["总数据流量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["总数据流量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["GSM流量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["GSM流量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["TD流量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["TD流量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["LTE流量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["LTE流量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["短信量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["短信量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["VoLTE用户数"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["VoLTE用户数环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                value = map["VoLTE话务量"];
+                type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                value = map["VoLTE话务量环比"];
+                type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                type_2_str += "</span>";
+
+                //value = map["彩信量"];
+                //type_2_str += "<span class='tpye2_span'>"+value.type_name+":<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //value = map["彩信量环比"];
+                //type_2_str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+"环比:"+"<b class='"+getUnitClassName(value)+"'>"+value.value+"</b>"+value.unit;
+                //type_2_str += "</span>";
+
+                $("#type_1").append(type_1_str);
+                $("#type_2").append(type_2_str);
+                $("#modal_click").click();
+            }
+        });
+    }
+
+    //var awidth=912;   //窗口宽度,需要设置
+    //var aheight=532;   //窗口高度,需要设置
+    //var atop=(screen.availHeight - aheight)/2;    //窗口顶部位置,一般不需要改
+    //var aleft=(screen.availWidth - awidth)/2; //窗口放中央,一般不需要改
+    //window.open("fault_item.html?type="+evt,"","channelmode=no,width=912,height=532,top="+atop+",left="+aleft+",",false);
+
+    function getUnitClassName(value)
+    {
+        if(value.unit == "%")
+        {
+            if(Number(value.value)<0)
+            {
+                return "ratio_value_minu";
+            }
+            else
+            {
+                return "ratio_value";
+            }
+        }
+        else
+        {
+            return "common_value";
+        }
+    }
+
+</script>
+</body>
+</html>

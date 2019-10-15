@@ -1,0 +1,396 @@
+﻿body{
+    background: url("../images/bg.png") no-repeat;
+    background-size: 100%;
+}
+
+.performance_page{
+    margin-top: -5px;
+    width: 100%;
+    height: 6%;
+}
+
+ul.performance_title{
+    width: 70%;
+    margin-left: 4%;
+    height: 65%;
+    float: left;
+}
+
+ul.performance_title>li{
+    color: #fff;
+    float: left;
+    height: 100%;
+    width: 7.5%;
+    text-align: center;
+}
+
+.performance_title li>p{
+    cursor: pointer;
+    float: left;
+    width: auto;
+    vertical-align: middle;
+    margin-top: 16%;
+    color: #fff;
+    background: url("../images/title1.png") no-repeat;
+    background-size: 100% 100%;
+
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6% 20%;
+    line-height: 13px;
+}
+
+.performance_page li>p.active{
+    color: #fff;
+    cursor: default;
+
+    background: url("../images/title2.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+ul.performance_href{
+    display: block;
+    position: absolute;
+    margin-left: 1%;
+    margin-top: 10px;
+    left: 60%;
+
+}
+
+ul.performance_href>li{
+    color:#145c9d ;
+    margin: 0;
+    float: left;
+}
+
+.performance_href>ul>li:last-child:after{
+    clear: both;
+    content: '';
+    display: block;
+}
+
+
+ul.performance_href li>a.active{
+    background: url("../images/clickPage.png");
+    color:#fff ;
+    background-size: 100% 100%;
+    width: 42px;
+    height: 29px;
+    cursor: default;
+}
+
+ul.performance_href>li a{
+    display: block;
+    height: 29px;
+    line-height: 29px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.performance_page>ul>li:last-child:after{
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.performance_list{
+    width: 100%;
+    height: 31%;
+    margin-top:0%;
+}
+
+
+.performance_list>ul{
+    width: 100%;
+    height: 100%;
+}
+
+.performance_list>ul>li{
+    color: #fff;
+    float: left;
+    height: 100%;
+    margin-left: 1%;
+    width: 24%;
+    text-align: center;
+    line-height: 30px;
+    cursor: default;
+    /*background: url("../images/imageTitle.png") no-repeat;
+    background-size: 100% 41%;*/
+
+    font-size: 12px;
+    color:#5af1ff ;
+}
+
+.performance_list>ul>li:last-child:after{
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.performance_list_bg{
+	margin-top: 10px;
+    position: absolute;
+    width: 25%;
+    height: 6%;
+}
+
+.performance_form{
+	margin-top: 0px;
+}
+
+
+
+.performance_list_title{
+	height: 0px;
+	margin-left: 15%;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.performance_list_title2{
+	height: 17px;
+	float: left;
+	margin-left: 60%;
+	color: #5AF1FF;
+	font-size: 12px;
+}
+
+p.performance_list_current{
+	float: left;
+	color: #2DED8C;
+	font-weight: bold;
+	font-size: 10px;
+	margin-left: 2px;
+}
+
+.business_left{
+    width: 23%;
+    height:76%;
+    float: left;
+}
+
+
+.business_middle{
+    width: 54%;
+    height:78%;
+    float: left;
+    background: url("../images/bg－central.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.business_right{
+    width: 23%;
+    height:76%;
+    float: left;
+}
+
+.business_list{
+    width: 100%;
+    height: 90%;
+    margin-top:1%;
+}
+
+.business_list>ul{
+    width: 100%;
+    height: 100%;
+}
+
+.business_list>ul>li{
+    color: #fff;
+    float: left;
+    height: 56%;
+    margin-left: 1%;
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    cursor: default;
+    /*background: url("../images/chartTitle.png") no-repeat;
+    background-size: 100% 100%;*/
+
+    font-size: 12px;
+    color:#5af1ff ;
+}
+.business_list>ul>li:first-child{
+    margin-top: -4px;
+}
+
+.business_list>ul>li:last-child{
+    margin-top: -1%;
+}
+
+.business_list_bg{
+    background: url("../images/chartTitle.png") no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    width: 23%;
+    height: 41%;
+}
+
+.business_list  .canvas {
+    margin-top: 3%;
+    margin-left: 14%;
+}
+
+.business_list_title{
+    margin-left: 10%;
+    float: left;
+    color: #5af1ff;
+}
+
+.business_count{
+    float: left;
+    width: 28%;
+    height: 100%;
+}
+
+.business_count_h1{
+    color: #5af1ff;
+    font-size: 13px;
+    width: 100%;
+    height: auto;
+    margin-top: 8%;
+    text-align: center;
+}
+
+.business_count_h2{
+    color: #5af1ff;
+    font-size: 9px;
+    width: 85%;
+    height: 13%;
+    margin-top: 2%;
+    margin-left: 9%;
+    text-align: center;
+
+    background: url("../images/deadline.png") no-repeat;
+    background-size: 100% 100%;
+    line-height: 40px;
+}
+
+.business_count_h2>b{
+    color:#f8fb00 ;
+    font-weight: normal;
+}
+
+.business_count_p{
+    color: #5af1ff;
+    font-size: 16px;
+    width: 80%;
+    height: 18%;
+    margin-left: 10%;
+    text-align: center;
+
+    background: url("../images/countNum.png") no-repeat;
+    background-size: 100% 100%;
+    line-height: 60px;
+    font-weight: bold;
+    color:#f8fb00 ;
+}
+
+.business_count_div{
+    color: #5af1ff;
+    font-size: 9px;
+    width: 80%;
+    height: auto;
+    margin-top: 1%;
+    margin-left: 10%;
+    text-align: left;
+}
+
+.business_count_div>b{
+    color:#f8fb00 ;
+    font-weight: normal;
+}
+
+.business_chart{
+    float: left;
+    width: 71%;
+    height: 100%;
+}
+
+
+
+.iframe_list_content{
+ width: 100%;
+ height: 216px;
+}
+
+
+
+.canvas{
+    width: 100%;
+    height:180px;
+    margin-top: 12%;
+    margin-left: 2%;
+}
+@media screen and (min-width : 1500px) { /*褰撳睆骞曞昂瀵?2048px鏃讹紝搴旂敤涓嬮潰鐨凜SS鏍峰紡*/
+    .performance_title li>p{
+	    padding: 14% 17%;
+	    font-size: 21px;
+	    line-height: 2px;
+    }
+
+    .business_count_h1 {
+        font-size: 24px;
+    }
+
+    .business_count_h2 {
+        font-size: 23px;
+        line-height: 73px;
+    }
+
+    .business_count_p {
+        font-size: 45px;
+        line-height: 109px;
+    }
+
+    .business_count_div{
+        font-size: 23px;
+    }
+
+    .business_list_title{
+        font-size: 23px;
+        line-height: 57px;
+    }
+
+    ul.performance_href{
+        margin-top: 20px;
+    }
+
+    ul.performance_href>li a {
+        line-height: 55px;
+        font-size: 27px;
+    }
+    ul.performance_href li>a.active {
+        width: 84px;
+        height: 58px;
+        line-height: 55px;
+        font-size: 27px;
+    }
+
+    .business_list .canvas {
+        margin-top: 9%;
+    }
+
+    .performance_list_title {
+	    line-height: 69px;
+	    font-size: 17px;
+	    text-align: left;
+    }
+
+    .performance_list_title2 {
+	    line-height: 69px;
+	    font-size: 17px;
+    }
+
+    p.performance_list_current {
+	    line-height: 69px;
+	    font-size: 17px;
+    }
+    
+    .div_x_line{
+        font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;
+        font-size: 12px;
+        color: #ffffff;
+    }
+}

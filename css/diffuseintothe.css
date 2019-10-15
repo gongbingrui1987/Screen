@@ -1,0 +1,309 @@
+@charset "utf-8";
+.difothe_bei {
+    background-image: url("../images/bg.png");
+    background-size: 100% ;
+    background-repeat: no-repeat;
+}
+
+.difothe_conts {
+    width: 100%;
+    height: 88%;
+    overflow: hidden;
+}
+/*左边部分*/
+.difothe_button {
+    float: left;
+    width: 20%;
+    height: 100%;
+    position: relative;
+}
+.difothe_button2 {
+    width: 73%;
+    margin-top :25%;
+    margin-left: 12%;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bolder;
+    color: #5af1ff;
+}
+.difothe_button3 {
+    width: 57%;
+    margin-top: 4%;
+    margin-left: 18%;
+    margin-bottom: 15%;
+    font-size: 23px;
+    font-weight: bolder;
+    color: #f8fb00;
+    text-align: center;
+}
+.difothe_button4 {
+    width: 45%;
+    height: 10%;
+    line-height: 30px;
+    margin-top: 7%;
+    margin-left: 25%;
+    background-image: url("../images/difothe_conts4.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bolder;
+    color: #fff;
+	cursor: hand;
+}
+.difothe_button5 {
+    width: 45%;
+    height: 10%;
+    line-height: 30px;
+    margin-top: 7%;
+    margin-left: 25%;
+    background-image: url("../images/difothe_conts3.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bolder;
+    color: #fff;
+	cursor: hand;
+}
+
+/*中间地图部分*/
+.difothe_img {
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+.difothe_img img {
+    width: 100%;
+}
+.difothe_img2 {
+    width: 169px;
+    height: 132px;
+    position: absolute;
+    top: 39%;
+    left: 58.5%;
+    background-image: url("../images/shanxi-3D.png");
+    background-size: 100% 100%;
+}
+
+.difothe_img5 {
+    width: 169px;
+    height: 132px;
+    position: absolute;
+    top: 38%;
+    left: 57.5%;
+    z-index: 999;
+}
+/*右边数据部分*/
+.difothe_liets {
+    float: left;
+    width: 27%;
+    height: 85%;
+    z-index: 1000;
+    position: absolute;
+	left: 70%;
+}
+.difothe_liets2 {
+    width: 100%;
+    height: 11%;
+    font-size: 14px;
+    color: #5af1ff;
+    margin-top: 9%;
+}
+
+.difothe_liets3 {
+    width: 100%;
+}
+.difothe_liets3 li {
+    width: 100%;
+    height: 9%;
+}
+.difothe_liets3 span {
+    display: block;
+    float: left;
+    width: 33.33333%;
+    text-align: center;
+    font-size: 15px;
+    color: #5af1ff;
+}
+
+.difothe_liets3 .difothe_name {
+    color: #00ff00;
+}
+.difothe_liets3 .difothe_name2 {
+    color: #ff33f1;
+}
+
+@media screen and (min-width : 1500px) {
+    .difothe_bei {
+        width: 100%;
+        height: 100%;
+    }
+    /*地图*/
+    .difothe_img{
+
+    }
+    .difothe_img2_1 {
+        width: 190px;
+        height: 148px;
+        position: absolute;
+        top: 38%;
+        left: 57.5%;
+    }
+    /*右边*/
+    .difothe_button2 {
+        font-size: 32px;
+    }
+    .difothe_button3 {
+       font-size: 32px;
+    }
+    .difothe_button4  {
+       font-size: 25px;
+       line-height: 60px;
+    }
+    .difothe_button5  {
+       font-size: 25px;
+       line-height: 60px;
+    }
+    /*左边*/
+    .difothe_liets2 {
+        font-size: 30px;
+    }
+    .difothe_liets3 span {
+        font-size: 25px;
+    }
+    
+}
+/*--------------------------------*/
+
+
+/*-----------中国地图css-----------*/
+
+#ChinaMap path {
+    stroke: #f5f5f5;
+    stroke-width: 2px;
+}
+
+/*线条css*/
+.mack_qu {
+    position: absolute;
+    top:-100%;
+    left: -40%;
+}
+.mack_qu path {
+    fill:none;
+    stroke-width: 1px;
+    stroke: #76ff00;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash2 15s linear forwards;
+}
+@keyframes dash2 {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+#polyline {
+    position: absolute;
+    top: -6%;
+    left: 57%;
+}
+#polyline path  {
+    stroke-width: 10px;
+    stroke: #76ff00;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 5s linear forwards;
+}
+@keyframes dash {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/*山西地图css*/
+.shanxin{
+    position: absolute;
+    top: -5%;
+    margin-left: 38%;
+    width: 30%;
+}
+
+.shanxin>path{
+    stroke: #fff;
+    stroke-width: 2px;
+}
+
+.gray{
+    fill:#dbba8f;
+}
+
+.red{
+    fill:rgb(227, 47, 2);
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+
+
+
+
+/*--------------------------地图css-----------------------------------样式*/
+/* base */
+html{background:#fff;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body,ul,ol,dl,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input,textarea,select,button,th,td,div{margin:0; padding:0}button,input,select,textarea{font:12px/1.5 tahoma,Helvetica,arial,\5b8b\4f53}input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}th{text-align:inherit}fieldset,img{border:0}iframe{display:block}ol,ul,li{list-style:none}del{text-decoration:line-through}ins,a{text-decoration:none}a:focus{outline:none}h1,h2,h3,h4,h5,h6{font-size:100%}.clear{clear:both}.clearfix:after{content:".";display:block;height:0;font-size:0;clear:both;visibility:hidden}.clearfix{zoom:1}
+/* base */
+
+body{font:12px/1.5 "Lucida Grande","Lucida Sans Unicode", Tahoma, SimSun,Helvetica,sans-serif; color:#2E313A;}
+/*.wrap{ width:900px; margin:0 auto; background:url(bg.png); border-left:1px solid #DDD; border-right:1px solid #DDD;}*/
+.itemCon {
+    width:100%;
+    height: 100%;
+}
+.itemCon svg {
+	width: 100%;
+	height: 133%;
+    margin-top: -11%;
+    transform: rotateX(49deg) rotateY(5deg) rotateZ(1deg);
+    /*transform-origin:50% 50%;*/
+    /*transition: all 1s;*/
+}
+/* 提示自定义 */
+
+.stateTip, #StateTip{display:none; position:absolute; padding:8px; background:#fff; border:2px solid #2385B1; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; font-size:12px; font-family:Tahoma; color:#333;}
+
+.mapInfo i{ display:inline-block; width:15px; height:15px; margin-top:5px; line-height:15px; font-style:normal; background:#aeaeae; color:#fff; font-size:11px; font-family: Tahoma; -webkit-border-radius:15px; border-radius:15px; text-align:center}
+.mapInfo i.active{background:#E27F21;}
+.mapInfo span{ padding:0 5px 0 3px;}
+.mapInfo b{ font-weight:normal; color:#2770B5}
+
+.difothe_liets8 {
+  width: 100%;
+  height: 11%;
+  font-size: 11px;
+  color: #5af1ff;
+  margin-top: 20%;
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.difothe_button8 {
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 3%;
+  margin-left: 65%;
+  background-image: url("../images/difothe_conts3.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-size: 14px;
+  text-align: center;
+  font-weight: bolder;
+  color: #fff;
+  cursor: hand;
+  position: absolute;
+  z-index: 10000;
+}

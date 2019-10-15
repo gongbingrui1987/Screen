@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+        <title>图形监控系统</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+
+      #container {
+        background-color: black;
+      }
+      
+        
+	.left1{
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+		z-index: 200;
+	    width:25%;
+	    height: 200px;
+	    background-color:#FFFFCC;
+     }
+
+	.left2{
+	    position: absolute;
+	    top:200px;
+	    left: 0;
+		z-index: 200;
+	    width:25%;
+	    height: 200px;
+	    background-color:#FF9900;
+	}
+
+	.middle{
+	    position: absolute;
+	    left: 25%;
+	    top: 0;
+	    z-index: 200;
+		width: 50%;
+	    height: 400px;
+	    background-color:#990066;
+	}
+
+	.right1{
+	    position: absolute;
+	    top: 0;
+	    left: 75%;
+		z-index: 200;
+	    width:25%;
+	    height: 200px;
+	    background-color:#FF9900;
+	}
+
+	.right2{
+	    position: absolute;
+	    width:25%;
+	    left: 75%;
+	    top:200px;
+		z-index: 200;
+	    height: 200px;
+	    background-color:#00FF99;
+	}
+    
+    </style>
+    <script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script type="text/javascript">  
+		var socket;  
+		if (!window.WebSocket) {  
+		    window.WebSocket = window.MozWebSocket;  
+		}  
+		// Javascript Websocket Client  
+		if (window.WebSocket) {  
+		    socket = new WebSocket("ws://localhost:9090/websocket");
+		    socket.onmessage = function(event) {  
+		    };  
+		    socket.onopen = function(event) {  
+		    };  
+		    socket.onclose = function(event) {  
+		        socket.send("someone Web Socket closed");   
+		    };  
+		} else {  
+		    alert("Your browser does not support Web Socket.");  
+		}  
+		// Send Websocket data  
+		function send(message) {
+		    if (!window.WebSocket) { return; }  
+		    if (socket.readyState == WebSocket.OPEN) {  
+		        socket.send(message);  
+		    } else {  
+		        alert("The socket is not open.");  
+		    }  
+		}  
+		
+		window.onbeforeunload = function()
+		{
+			//alert("window closed");
+			socket.send("Web Socket closed!"); 
+		}
+		
+     </script>  
+     
+     
+     
+        
+  </head>
+  
+  <body>
+        <div id="div1" class="left1"></div> 
+        <div id="div2" class="left2"></div>  
+        <div id="divmin"  class="middle"></div>
+        <div id="div3" class="right1"></div>
+        <div id="div4"  class="right2"></div>
+        
+        <script type="text/javascript">
+               $(document).ready(function () {   			        
+			        $('#div1').click(switchone); 
+			        $('#div2').click(switchtwo);
+			        $('#div3').click(switchthree);
+			        $('#div4').click(switchfour);
+			   });
+			   
+			    function switchone(){	
+			           //alert("send..........");
+			           if (!window.WebSocket) { return; }  
+					   if (socket.readyState == WebSocket.OPEN) {  
+					        socket.send("div1");  
+					   }else{  
+					        alert("The socket is not open.");  
+					   }  
+			    }
+			    
+			    
+			    function switchtwo(){
+			       
+			           if (!window.WebSocket) { return; }  
+					   if (socket.readyState == WebSocket.OPEN) {  
+					        socket.send("div2");  
+					   }else{  
+					        alert("The socket is not open.");  
+					   } 
+			    }
+			   
+			     
+			    function switchthree(){	
+			           if (!window.WebSocket) { return; }  
+					   if (socket.readyState == WebSocket.OPEN) {  
+					        socket.send("div3");  
+					   }else{  
+					        alert("The socket is not open.");  
+					   } 
+			    }
+			    
+			      
+			    function switchfour(){	
+			       
+			           if (!window.WebSocket) { return; }  
+					   if (socket.readyState == WebSocket.OPEN) {  
+					        socket.send("div4");  
+					   }else{  
+					        alert("The socket is not open.");  
+					   } 
+			    }
+			    
+			   
+        </script>
+  </body>
+</html>

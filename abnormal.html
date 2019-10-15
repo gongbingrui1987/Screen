@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>业务分析及终端分析</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <link href="./css/reset.css" type="text/css" rel="stylesheet">
+    <link href="./css/index.css" type="text/css" rel="stylesheet">
+    <link href="./css/abnormal.css" type="text/css" rel="stylesheet">
+</head>
+<body style="overflow:hidden;">
+<!--        主页内容-->
+<section>
+    <article>
+        <header class="header">
+            异常事件
+            <div class="header_deadline">截至<b id="current_time">13日11:00&nbsp;&nbsp;</b></div>
+        </header>
+        <div class="abnormal_left">
+            <h1 class="abnormal_title">退服投诉</h1>
+            <h2 class="abnormal_subtitle"><b class="red">一级&nbsp;</b>/<b class="orange">&nbsp;二级&nbsp;</b>/<b class="yellow">&nbsp;三级&nbsp;</b>/<b class="green">&nbsp;正常</b></h2>
+            <div class="abnormal_table">
+                <ul class="blue">
+                    <li>地市</li>
+                    <li>GSM小区退服</li>
+                    <li>TD小区退服</li>
+                    <li>LTE小区退服</li>
+                    <li>通讯质量</li>
+                    <li>网络覆盖</li>
+                    <li>GPRS投诉</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue1">
+                    <li>太原</li>
+                    <li id="TY1" class="green">18</li>
+                    <li id="TY2" class="green">8</li>
+                    <li id="TY3" class="green">4</li>
+                    <li id="TY4" class="green">1</li>
+                    <li id="TY5" class="green">1</li>
+                    <li id="TY6" class="green">3</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue2">
+                    <li>大同</li>
+                    <li id="DT1" class="green">13</li>
+                    <li id="DT2" class="green">1</li>
+                    <li id="DT3" class="green">12</li>
+                    <li id="DT4" class="green">1</li>
+                    <li id="DT5" class="green">3</li>
+                    <li id="DT6" class="green">1</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue1">
+                    <li>朔州</li>
+                    <li id="SZ1" class="green">2</li>
+                    <li id="SZ2" class="green">1</li>
+                    <li id="SZ3" class="green">0</li>
+                    <li id="SZ4" class="green">1</li>
+                    <li id="SZ5" class="green">0</li>
+                    <li id="SZ6" class="green">2</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue2">
+                    <li>忻州</li>
+                    <li id="XZ1" class="green">0</li>
+                    <li id="XZ2" class="green">0</li>
+                    <li id="XZ3" class="green">17</li>
+                    <li id="XZ4" class="green">1</li>
+                    <li id="XZ5" class="green">2</li>
+                    <li id="XZ6" class="green">0</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue1">
+                    <li>长治</li>
+                    <li id="CZ1" class="green">2</li>
+                    <li id="CZ2" class="green">0</li>
+                    <li id="CZ3" class="green">0</li>
+                    <li id="CZ4" class="green">0</li>
+                    <li id="CZ5" class="green">3</li>
+                    <li id="CZ6" class="green">0</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue2">
+                    <li>阳泉</li>
+                    <li id="YQ1" class="yellow">12</li>
+                    <li id="YQ2" class="green">1</li>
+                    <li id="YQ3" class="green">3</li>
+                    <li id="YQ4" class="green">0</li>
+                    <li id="YQ5" class="green">0</li>
+                    <li id="YQ6" class="green">2</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue1">
+                    <li>运城</li>
+                    <li id="YC1" class="green">15</li>
+                    <li id="YC2" class="green">5</li>
+                    <li id="YC3" class="green">1</li>
+                    <li id="YC4" class="green">0</li>
+                    <li id="YC5" class="green">7</li>
+                    <li id="YC6" class="green">2</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue2">
+                    <li>晋中</li>
+                    <li id="JZ1" class="yellow">20</li>
+                    <li id="JZ2" class="green">3</li>
+                    <li id="JZ3" class="green">1</li>
+                    <li id="JZ4" class="green">0</li>
+                    <li id="JZ5" class="green">2</li>
+                    <li id="JZ6" class="green">2</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue1">
+                    <li>晋城</li>
+                    <li id="JC1" class="green">2</li>
+                    <li id="JC2" class="green">2</li>
+                    <li id="JC3" class="green">0</li>
+                    <li id="JC4" class="green">0</li>
+                    <li id="JC5" class="green">1</li>
+                    <li id="JC6" class="green">1</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue2">
+                    <li>吕梁</li>
+                    <li id="LL1" class="green">7</li>
+                    <li id="LL2" class="green">6</li>
+                    <li id="LL3" class="green">3</li>
+                    <li id="LL4" class="red">5</li>
+                    <li id="LL5" class="green">5</li>
+                    <li id="LL6" class="green">2</li>
+                    <div style="clear: both"></div>
+                </ul>
+                <ul class="blue1">
+                    <li>临汾</li>
+                    <li id="LF1" class="green">5</li>
+                    <li id="LF2" class="green">8</li>
+                    <li id="LF3" class="green">2</li>
+                    <li id="LF4" class="green">0</li>
+                    <li id="LF5" class="green">4</li>
+                    <li id="LF6" class="green">1</li>
+                    <div style="clear: both"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="abnormal_right">
+            <div class="abnormal_title2">
+                <ul>
+                    <li></li>
+                    <li>BSC</li>
+                    <li>RNC</li>
+                    <li>MSC</li>
+                    <li>SGSN</li>
+                    <li class="active">MSC Pool</li>
+                </ul>
+            </div>
+            <div class="abnormal_content">
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section class="active">
+                    <h1 class="abnormal_content_title" id="content_title">MSC&nbsp;Pool均衡度&nbsp;&nbsp;TOP10</h1>
+                    <h1 class="abnormal_content_value" id="content_title1">
+                    </h1>
+                    <ul class="abnormal_content_top">
+                        <li class="top1"><p id="t1">太原诺西MSCPOOL 02</p></li>
+                        <li class="top2"><p id="t2">晋城卡特MSCPOOL 01</p></li>
+                        <li class="top3"><p id="t3">长治诺西MSCPOOL 01</p></li>
+                        <li class="top4"><p id="t4">忻州卡特MSCPOOL 01</p></li>
+                        <li class="top5"><p id="t5">大同卡特MSCPOOL 01</p></li>
+                        <li class="top6"><p id="t6">朔州卡特MSCPOOL 01</p></li>
+                        <li class="top7"><p id="t7">大同卡特MSCPOOL 02</p></li>
+                        <li class="top8"><p id="t8">临汾诺西MSCPOOL 01</p></li>
+                        <li class="top9"><p id="t9">阳泉卡特MSCPOOL 01</p></li>
+                        <li class="top10"><p id="t10">吕梁卡特MSCPOOL 02</p></li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </article>
+</section>
+<script defer="defer" src="./js/ichart.latest.min.js"></script>
+<script defer="defer" src="./js/mychart_analyse.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script defer="defer">
+    var d = new Date();
+    document.getElementById("current_time").innerHTML = d.getDate()+"日"+d.getHours()+":00";
+
+    document.querySelector('.abnormal_title2').addEventListener('click',function(e){
+        var target = e.target;
+        if(target.className.indexOf('active')>-1){
+            return
+        } else{
+            document.querySelector('.active').className = "abnormal_title2_li";
+            target.className = 'active';
+        }
+
+        getdata("cityKpi",target.textContent);
+
+    });
+
+
+    getdata("netop","");
+    getdata("cityKpi","MSC Pool");
+
+    function getdata(type,neType){
+
+        $.ajax({
+            url: "jsonunnormal!returnMap.action",
+            type: 'POST',
+            data: {
+                type: type,
+                neType: neType
+            },
+            success: function (data) {
+
+                if(type == "netop"){
+
+                    $.each(data.kpiMap,function(key,value){
+                        for(var i=0;i<6;i++){
+                            var item = document.getElementById(key+(i+1));
+                            item.innerHTML = value[i].substring(0,value[i].indexOf("/"));
+                            //alert(value[i].substring(value[i].indexOf("/")+1));
+                            item.className  = value[i].substring(value[i].indexOf("/")+1);
+                        }
+                    });
+
+                }else{
+                    var contentTitle = document.getElementById("content_title");
+
+                    if(neType=="BSC"){
+
+                        contentTitle.innerHTML ="BSC&nbsp;寻呼负荷&nbsp;&nbsp;TOP10";
+
+                    }else if(neType=="RNC"){
+
+                        contentTitle.innerHTML ="RNC&nbsp;语音无线接通率&nbsp;&nbsp;TOP10";
+
+                    }else if(neType=="MSC"){
+
+                        contentTitle.innerHTML ="MSC&nbsp;端局长途来话接通率&nbsp;&nbsp;TOP10";
+
+                    }else if(neType=="SGSN"){
+
+                        contentTitle.innerHTML ="SGSN&nbsp;PDP激活成功率&nbsp;&nbsp;TOP10";
+
+                    }else if(neType=="MSC Pool"){
+
+                        contentTitle.innerHTML ="MSC&nbsp;Pool均衡度&nbsp;&nbsp;TOP10";
+                    }
+
+                    var kpiValueList ="<table style=\"width:980px;margin-left:10px;color:#ffffff;\"><tr>";
+                    $.each(data.kpiMap,function(key,value){
+                        for(var i=0;i<10;i++){
+                            var item = document.getElementById("t"+(i+1));
+                            item.innerHTML = value[i].substring(0,value[i].indexOf("/"));
+                            kpiValueList = kpiValueList+"<td align=\"center\" width=\"98\">"+value[i].substring(value[i].indexOf("/")+1)+"%</td><td></td>";
+
+                        }
+                    });
+
+                    kpiValueList = kpiValueList+"</tr></table>";
+                    var content_title1 = document.getElementById("content_title1");
+                    content_title1.innerHTML=kpiValueList;
+                }
+            }
+        });
+
+    }
+
+    function timerExec(){
+        getdata("netop","");
+        var text = document.querySelector('.active').textContent
+        getdata("cityKpi",text);
+    }
+
+    //setInterval("timerExec()",15000);
+
+</script>
+</body>
+</html>

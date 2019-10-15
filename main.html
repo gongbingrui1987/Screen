@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+<head>
+    <title>主页</title>
+
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="js/Chart.js" type="text/javascript"></script>
+    <script src="js/dpm.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        body {
+            width:4096px;
+            height:768px;
+            margin: 0;
+            padding: 0;
+            background-color: #0A06B5;
+        }
+        #container {
+            background-color: black;
+        }
+        div{
+            -moz-transition: all 2s ease-in-out;
+            -webkit-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+        iframe{
+            -moz-transition: all 2s ease-in-out;
+            -webkit-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+        .middle{
+            width : 2048px;
+            height :768px;
+            z-index : 999;
+            position : absolute;
+            top : 0;
+            margin-top : 0px;
+            margin-left : 1024px;
+        }
+        .iframemiddle{
+            width : 2048px;
+            height : 768px;
+        }
+        .right{
+            width : 1024px;
+            height : 384px;
+            z-index : 999;
+            position : absolute;
+            top : 0;
+            margin-top : 0px;
+            margin-left : 3071px;
+        }
+        .rightdown{
+            width : 1024px;
+            height : 384px;
+            z-index : 999;
+            position : absolute;
+            top : 0;
+            margin-top : 384px;
+            margin-left : 3071px;
+        }
+        .left{
+            width : 1024px;
+            height : 384px;
+            z-index : 999;
+            position : absolute;
+            top : 0;
+            margin-top : 0px;
+            margin-left : 0px;
+        }
+        .leftdown{
+            width : 1024px;
+            height : 385px;
+            z-index : 999;
+            position : absolute;
+            top : 0;
+            margin-top : 384px;
+            margin-left : 0px;
+        }
+        .iframleft{
+            -webkit-transform : scale(0.5,0.5);
+            -webkit-transform-origin: 0% 0%;
+            width : 2048px;
+            height : 768px;
+            frameborder : 0;
+            scrolling : no;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $('#div16').click(switchone);
+        $('#div26').click(switchtow);
+        $('#div36').click(switchthree);
+        $('#div46').click(switchfour);
+        if (window.WebSocket) {
+            socket = new WebSocket("ws://localhost:9090/websocket");
+            socket.onmessage = function(event) {
+                if(event.data=="div1"){
+                    switchone();
+                }else if(event.data=="div2"){
+                    switchtow();
+                }else if(event.data=="div3"){
+                    switchthree();
+                }else if(event.data=="div4"){
+                    switchfour();
+                }
+            };
+            socket.onopen = function(event) {
+            };
+            socket.onclose = function(event) {
+                socket.send("someone Web Socket closed");
+            };
+        } else {
+            alert("Your browser does not support Web Socket.");
+        }
+
+    });
+
+    function switchone(){
+        var divmin =  document.getElementById("divmin");
+        var page1 =  document.getElementById("page1");
+        var div1 =  document.getElementById("div1");
+        var iframe1 =  document.getElementById("iframe1");
+
+        divmin.className ='left';
+        page1.className ='iframleft';
+
+        div1.className = 'middle';
+        iframe1.className='iframemiddle';
+
+        divmin.id='div1';
+        div1.id='divmin';
+        page1.id='iframe1';
+        iframe1.id='page1';
+
+
+        divmin.style.zIndex='400';
+        div1.style.zIndex='5';
+    }
+
+    function switchtow(){
+        var divmin =  document.getElementById("divmin");
+        var page1 =  document.getElementById("page1");
+
+        var div2 =  document.getElementById("div2");
+        var iframe2 =  document.getElementById("iframe2");
+
+        divmin.className ='leftdown';
+        page1.className ='iframleft';
+
+        div2.className = 'middle';
+        iframe2.className='iframemiddle';
+
+        divmin.id='div2';
+        div2.id='divmin';
+
+        page1.id='iframe2';
+        iframe2.id='page1';
+
+        divmin.style.zIndex='200';
+        div2.style.zIndex='1';
+    }
+
+    function switchthree(){
+        var divmin =  document.getElementById("divmin");
+        var page1 =  document.getElementById("page1");
+
+        var div3 =  document.getElementById("div3");
+        var iframe3 =  document.getElementById("iframe3");
+
+        divmin.className ='right';
+        page1.className ='iframleft';
+
+        div3.className = 'middle';
+        iframe3.className='iframemiddle';
+
+        divmin.id='div3';
+        div3.id='divmin';
+
+        page1.id='iframe3';
+        iframe3.id='page1';
+
+        divmin.style.zIndex='200';
+        div3.style.zIndex='1';
+    }
+
+    function switchfour(){
+        var divmin =  document.getElementById("divmin");
+        var page1 =  document.getElementById("page1");
+
+        var div4 =  document.getElementById("div4");
+        var iframe4 =  document.getElementById("iframe4");
+
+        divmin.className ='rightdown';
+        page1.className ='iframleft';
+
+        div4.className = 'middle';
+        iframe4.className='iframemiddle';
+
+        divmin.id='div4';
+        div4.id='divmin';
+
+        page1.id='iframe4';
+        iframe4.id='page1';
+
+        divmin.style.zIndex='200';
+        div4.style.zIndex='1';
+    }
+
+</script>
+<div  style="width:4096px;height:768px;position: absolute; left: 0;top: 0;">
+    <div id="div1" class="left">
+        <iframe id="iframe1"   class="iframleft"  frameborder=0 scrolling="no" src="faultView.html"></iframe>
+    </div>
+    <div id="div16" style="filter:alpha(opacity=100);width:1000px;height:386px;z-index:999;position:absolute;top:0;margin-top:0px;margin-left:0px;">
+    </div>
+
+    <div id="div2" class="leftdown">
+        <iframe id="iframe2"   class="iframleft"  frameborder=0 scrolling="no" src="abnormal.html"></iframe>
+    </div>
+    <div id="div26" style="filter:alpha(opacity=100);width:1013px;height:384px;z-index:999;position:absolute;top:0;margin-top:381px;margin-left:0px;">
+
+    </div>
+
+    <div id="div3" class="right">
+        <iframe id="iframe3"   class="iframleft"  frameborder=0 scrolling="no" src="performanceParent.html"></iframe>
+    </div>
+    <div id="div36" style="filter:alpha(opacity=100);width:1013px;height:384px;z-index:999;position:absolute;top:0;margin-top:0px;margin-left:3071px;">
+
+    </div>
+
+    <div id="div4" class="rightdown">
+        <iframe id="iframe4"   class="iframleft"  frameborder=0 scrolling="no" src="businessAnalyse.html"></iframe>
+    </div>
+    <div id="div46" style="filter:alpha(opacity=100);width:1013px;height:384px;z-index:999;position:absolute;top:0;margin-top:381px;margin-left:3071px;">
+
+    </div>
+
+    <div id="divmin" class="middle">
+        <iframe id="page1"  class="iframemiddle" frameborder=0 scrolling="no" src="business.html"></iframe>
+    </div>
+</div>
+</body>
+</html>

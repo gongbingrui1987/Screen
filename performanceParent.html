@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>图形监控系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <link href="./css/reset.css" type="text/css" rel="stylesheet">
+    <link href="./css/index.css" type="text/css" rel="stylesheet">
+    <link href="./css/performanceIndex.css" type="text/css" rel="stylesheet">
+
+    <script defer="defer" src="./js/ichart.latest.min.js"></script>
+    <script defer="defer" src="./js/mychart.js"></script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/fusioncharts_1.js"></script>
+    <script defer="defer" >
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)
+                return  unescape(r[2]);
+            return null;
+        }
+
+        window.onload = function(){
+            var d = new Date();
+            document.getElementById("current_time").innerHTML = d.getDate()+"日"+d.getHours()+":00";
+
+            var title = document.querySelector('.performance_title');
+            title.addEventListener('click',function(e){
+                var target = e.target;
+                if(target.nodeName.toLowerCase()=='p'&&target.className !=='active'){
+                    var active = document.querySelector('.performance_title p.active');
+                    if(active){
+                        target.className = 'active';
+                        active.className = '';
+                        //各省市click事件内容添加在这
+                        if(document.querySelector('.other').className == 'header_title other'){
+                            changeType('lte',target.textContent);
+                        }else{
+                            changeType('other',target.textContent);
+                        }
+
+                    }
+                }
+            });
+
+
+            function clearBtn(){
+                document.querySelector('.lte').className = 'header_title lte';
+                document.querySelector('.other').className = 'header_title other';
+            }
+
+            //lte调用事件
+            document.querySelector('.lte').addEventListener('click',function(e){
+                var active = document.querySelector('.performance_title p.active');
+                if(this.className.indexOf('active')>-1){
+                    return
+                } else{
+                    clearBtn();
+                    this.className += ' active';
+                }
+                changeType('lte',active.textContent);
+            });
+
+            //其他调用事件
+            document.querySelector('.other').addEventListener('click',function(e){
+                var active = document.querySelector('.performance_title p.active');
+                if(this.className.indexOf('active')>-1){
+                    return
+                } else{
+                    clearBtn();
+                    this.className += ' active';
+                }
+                changeType('other',active.textContent);
+            });
+
+            changeType("lte",'全省');
+        };
+
+
+        /*刷新页面大小*/
+        function refresh(){
+            var divs = document.querySelectorAll('.canvas');
+            for(var i=0;i<divs.length;i++){
+                charts[i].resize(divs[i].clientWidth,divs[i].clientHeight);
+            }
+        }
+
+
+
+
+
+        function changeType(type,cityValue){
+            //performance_list_content
+            var iframes = document.querySelectorAll('.iframe_list_content');
+            var performance_current = document.querySelectorAll('.performance_list_current');
+            var performance_title = document.querySelectorAll('.performance_list_title');
+            var x_lines = document.querySelectorAll('.div_x_line');
+            var divs = document.querySelectorAll('.canvas');
+            var time = 500;
+
+            //
+            $.ajax({
+                url: "jsontest!returnMap.action",
+                type: 'POST',
+                data: {
+                    type: type,
+                    city: cityValue
+                },
+                success: function (data) {
+                    $.each(data.kpiMap,function(key,value){
+                        var no = value[0];
+                        var xlabels = value[1];
+                        var dataXml = value[2];
+                        var currentValue = value[3];
+                        var colorValue = value[4];
+                        performance_title[parseInt(no)].innerHTML=key;
+                        performance_current[parseInt(no)].innerHTML = currentValue+"%";
+                        var tablestr = "<table style=\"width:390px;margin-left:85px;color:#ffffff;\"><tr>";
+                        var xlabelsArr = xlabels.split(",");
+                        for(var i=0;i<xlabelsArr.length;i++){
+                            tablestr = tablestr+"<td>"+xlabelsArr[i]+"时</td><td></td>";
+                        }
+                        var d = new Date();
+                        document.getElementById("current_time").innerHTML = d.getDate()+"日"+xlabelsArr[xlabelsArr.length-1]+":00";
+                        tablestr = tablestr+"</tr></table>";
+                        x_lines[parseInt(no)].innerHTML=tablestr;
+                        //divs[parseInt(no)]
+                        creatChart(dataXml,divs[parseInt(no)],key);
+                    });
+                }
+            });
+        }
+
+        function count(){
+        }
+
+        function creatChart(dataXml,div,key){
+            div.innerHTML = "";
+            var chart = new FusionCharts("MSColumnLine3D.swf", "canvasDivChartId"+key, "100%", "180", "0", "1", "FFFFFF", "exactFit");
+            chart.setDataXML(dataXml);
+            chart.render(div);
+            $("svg").css("background-color","");
+        }
+
+        //changeType(type,cityValue)
+        function timerExec(){
+            var active = document.querySelector('.performance_title p.active');
+            if($(".other").className == 'header_title other'){
+                changeType("lte",active.textContent);
+            }else{
+                changeType("other",active.textContent);
+            }
+
+        }
+
+        //setInterval("timerExec()",180000);
+
+    </script>
+</head>
+<body style="overflow:hidden;">
+<section>
+    <article>
+        <header class="header">
+            <div class="header_title lte active">lte&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="header_title other">其他&nbsp;&nbsp;&nbsp;</div>
+            性能指标
+            <div class="header_deadline">截至<b  id="current_time">13日11:00&nbsp;&nbsp;</b></div>
+        </header>
+        <div class="performance_page">
+            <ul class="performance_title">
+                <li><p class="active">全省</p></li>
+                <li><p>太原</p></li>
+                <li><p>大同</p></li>
+                <li><p>朔州</p></li>
+                <li><p>忻州</p></li>
+                <li><p>晋中</p></li>
+                <li><p>晋城</p></li>
+                <li><p>临汾</p></li>
+                <li><p>吕梁</p></li>
+                <li><p>阳泉</p></li>
+                <li><p>长治</p></li>
+                <li><p>运城</p></li>
+            </ul>
+        </div>
+        <div class="performance_list">
+            <ul>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title" >LTE附着成功率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#99FFCC;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title">HSS位置更新(TAU)成功率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#66CC00;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title">CSFB寻呼成功率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#FF66FF;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title">切换成功率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#66CCFF;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="performance_list" style="margin-top: 3.8%;">
+            <ul>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title">CSFB回落成功率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#FF9933;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title">LTE无线接通率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#FFFFCC;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title">LTE无线掉线率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#3333FF;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <div class="performance_list_bg">
+                        <div class="performance_list_title">CSFB呼叫接通率</div>
+                        <div class="performance_list_title2">当前值</div>
+                        <p class="performance_list_current"></p>
+                    </div>
+                    <div  class="canvas"></div>
+                    <div class="div_x_line"></div>
+                    <div  style="font-family: 'Arial','Microsoft YaHei','黑体','宋体',sans-serif;font-size: 10px;color: #ffffff;margin-top: 1%;">
+                        <table style="width:437px;color:#ffffff;margin-left:130px;">
+                            <tr>
+                                <td style=width:60px;height:21px;">当前值</td>
+                                <td style=width:60px;height:21px;"><div style="background-color:#FFCC33;width:25px;height:18px;"></div></td>
+                                <td style=width:70px;height:21px;">上周同期</td>
+                                <td style=width:60px;height:21px;"><div><img src="images/line_icon.png"/></div></td>
+                                <td style=width:60px;height:21px;"></td>
+                                <td style=width:60px;height:21px;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </article>
+</section>
+</body>
+</html>

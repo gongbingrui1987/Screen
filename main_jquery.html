@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>主页</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="js/jquery.animateToClass.js" type="text/javascript"></script>
+
+    <style>
+        body {
+            width:4096px;
+            height:768px;
+            margin: 0;
+            padding: 0;
+            background-color: #0A06B5;
+        }
+        div{
+            -moz-transition: all 2s ease-in-out;
+            -webkit-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+        iframe{
+            -moz-transition: all 2s ease-in-out;
+            -webkit-transition: all 2s ease-in-out;
+            -o-transition: all 2s ease-in-out;
+            transition: all 2s ease-in-out;
+        }
+        .middle{
+            width : 2048px;
+            height :768px;
+            z-index : 5;
+            position : absolute;
+            top : 0;
+            margin-top : 0;
+            margin-left : 1024px;
+        }
+        .iframe_middle{
+            width : 2048px;
+            height : 768px;
+        }
+        .right{
+            width : 1024px;
+            height : 384px;
+            z-index : 400;
+            position : absolute;
+            top : 0;
+            margin-top : 0;
+            margin-left : 3071px;
+        }
+        .right_down{
+            width : 1024px;
+            height : 384px;
+            z-index : 400;
+            position : absolute;
+            top : 0;
+            margin-top : 384px;
+            margin-left : 3071px;
+        }
+        .left{
+            width : 1024px;
+            height : 384px;
+            z-index : 400;
+            position : absolute;
+            top : 0;
+            margin-top : 0;
+            margin-left : 0;
+        }
+        .left_down{
+            width : 1024px;
+            height : 385px;
+            z-index : 400;
+            position : absolute;
+            top : 0;
+            margin-top : 384px;
+            margin-left : 0;
+        }
+        .iframe_left{
+            -webkit-transform : scale(0.5,0.5);
+            -webkit-transform-origin: 0 0;
+            width : 2048px;
+            height : 768px;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $('#div16').click(switchone);
+            $('#div26').click(switchtwo);
+            $('#div36').click(switchthree);
+            $('#div46').click(switchfour);
+            if (window.WebSocket) {
+                socket = new WebSocket("ws://localhost:9090/websocket");
+                socket.onmessage = function(event) {
+                    if(event.data=="div1"){
+                        switchone();
+                    }else if(event.data=="div2"){
+                        switchtwo();
+                    }else if(event.data=="div3"){
+                        switchthree();
+                    }else if(event.data=="div4"){
+                        switchfour();
+                    }
+                };
+                socket.onopen = function(event) {
+                };
+                socket.onclose = function(event) {
+                    socket.send("someone Web Socket closed");
+                };
+            } else {
+                alert("Your browser does not support Web Socket.");
+            }
+        });
+
+        function switchone()
+        {
+            $('#div_min').animateToClass(
+                "left",{ duration: 300, queue: false }
+            );
+            $('#div1').animateToClass(
+                "middle",{ duration: 300, queue: false ,
+                    complete : function (){
+
+                        let iframe = $("#iframe1");
+                        let iframe_min = $("#iframe_min");
+                        iframe.removeClass('iframe_left');
+                        iframe.addClass('iframe_middle');
+                        iframe_min.removeClass('iframe_middle');
+                        iframe_min.addClass('iframe_left');
+
+                        $('#div1').attr('id', 'div_temp');
+                        $('#div_min').attr('id', 'div1');
+                        $('#div_temp').attr('id', 'div_min');
+
+                        iframe.attr('id', 'iframe_temp');
+                        iframe_min.attr('id', 'iframe1');
+                        $('#iframe_temp').attr('id', 'iframe_min');
+                    }
+                }
+            );
+        }
+        function switchtwo() {
+            $('#div_min').animateToClass(
+                "left_down", {duration: 300, queue: false}
+            );
+            $('#div2').animateToClass(
+                "middle", {
+                    duration: 300, queue: false,
+                    complete: function () {
+                        let iframe = $("#iframe2");
+                        let iframe_min = $("#iframe_min");
+                        iframe.removeClass('iframe_left');
+                        iframe.addClass('iframe_middle');
+                        iframe_min.removeClass('iframe_middle');
+                        iframe_min.addClass('iframe_left');
+
+                        $('#div2').attr('id', 'div_temp');
+                        $('#div_min').attr('id', 'div2');
+                        $('#div_temp').attr('id', 'div_min');
+
+                        iframe.attr('id', 'iframe_temp');
+                        iframe_min.attr('id', 'iframe2');
+                        $('#iframe_temp').attr('id', 'iframe_min');
+                    }
+                }
+            );
+        }
+        function switchthree()
+        {
+            $('#div_min').animateToClass(
+                "right",{ duration: 300, queue: false }
+            );
+            $('#div3').animateToClass(
+                "middle",{ duration: 300, queue: false ,
+                    complete : function (){
+
+                        let iframe = $("#iframe3");
+                        let iframe_min = $("#iframe_min");
+                        iframe.removeClass('iframe_left');
+                        iframe.addClass('iframe_middle');
+                        iframe_min.removeClass('iframe_middle');
+                        iframe_min.addClass('iframe_left');
+
+                        $('#div3').attr('id', 'div_temp');
+                        $('#div_min').attr('id', 'div3');
+                        $('#div_temp').attr('id', 'div_min');
+
+                        iframe.attr('id', 'iframe_temp');
+                        iframe_min.attr('id', 'iframe3');
+                        $('#iframe_temp').attr('id', 'iframe_min');
+                    }
+                }
+            );
+        }
+
+        function switchfour()
+        {
+            $('#div_min').animateToClass(
+                "right_down",{ duration: 300, queue: false }
+            );
+            $('#div4').animateToClass(
+                "middle",{ duration: 300, queue: false ,
+                    complete : function (){
+
+
+                        let iframe = $("#iframe4");
+                        let iframe_min = $("#iframe_min");
+                        iframe.removeClass('iframe_left');
+                        iframe.addClass('iframe_middle');
+                        iframe_min.removeClass('iframe_middle');
+                        iframe_min.addClass('iframe_left');
+
+                        $('#div4').attr('id', 'div_temp');
+                        $('#div_min').attr('id', 'div4');
+                        $('#div_temp').attr('id', 'div_min');
+
+                        iframe.attr('id', 'iframe_temp');
+                        iframe_min.attr('id', 'iframe4');
+                        $('#iframe_temp').attr('id', 'iframe_min');
+                    }
+                }
+            );
+        }
+    </script>
+</head>
+<body>
+<div  style="width:4096px;height:768px;position: absolute; left: 0;top: 0;">
+    <div id="div1" class="left">
+        <iframe id="iframe1"   class="iframe_left"  src="faultView.html"></iframe>
+    </div>
+    <div id="div16" style="filter:alpha(opacity=100);width:1024px;height:386px;z-index:999;position:absolute;top:0;margin-top:0px;margin-left:0px;">
+    </div>
+
+    <div id="div2" class="left_down">
+        <iframe id="iframe2"   class="iframe_left"  src="abnormal.html"></iframe>
+    </div>
+    <div id="div26" style="filter:alpha(opacity=100);width:1024px;height:384px;z-index:999;position:absolute;top:0;margin-top:381px;margin-left:0px;">
+
+    </div>
+
+    <div id="div3" class="right">
+        <iframe id="iframe3"   class="iframe_left"  src="performanceParent.html"></iframe>
+    </div>
+    <div id="div36" style="filter:alpha(opacity=100);width:1024px;height:384px;z-index:999;position:absolute;top:0;margin-top:0px;margin-left:3071px;">
+
+    </div>
+
+    <div id="div4" class="right_down">
+        <iframe id="iframe4"   class="iframe_left"  src="businessAnalyse.html"></iframe>
+    </div>
+    <div id="div46" style="filter:alpha(opacity=100);width:1024px;height:384px;z-index:999;position:absolute;top:0;margin-top:381px;margin-left:3071px;">
+
+    </div>
+
+    <div id="div_min" class="middle">
+        <iframe id="iframe_min"  class="iframe_middle" src="business.html"></iframe>
+    </div>
+</div>
+</body>
+</html>

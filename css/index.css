@@ -1,0 +1,178 @@
+/*author:debris*/
+@charset "utf-8";
+section{
+    margin: 0;
+}
+
+
+iframe{
+    -moz-transition: all 2s ease-in-out;
+    -webkit-transition: all 2s ease-in-out;
+    -o-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+    min-height: 384px;
+}
+
+article{
+    height: 99%;
+    width: 99%;
+    position: absolute;
+}
+
+.left1{
+    position: absolute;
+    top: 0;
+    left: 0;
+	z-index: 200;
+	/*width: 2048px;
+    height: 768px;*/
+    width:1024px;
+    height: 384px;
+}
+
+.left2{
+    position: absolute;
+    top:384px;
+    left: 0;
+	z-index: 200;
+	width: 1024px;
+    height: 384px;
+}
+
+.middle{
+    position: absolute;
+    left: 1024px;
+    top: 0;
+    z-index: 200;
+	min-width: 2048px;
+    height: 768px;
+}
+
+.right1{
+    position: absolute;
+    top: 0;
+    left: 3072px;
+	z-index: 200;
+	width: 1024px;
+    height: 384px;
+}
+
+.right2{
+    position: absolute;
+    width:25%;
+    left: 3072px;
+    top:384px;
+	z-index: 200;
+	width:1024px;
+    height: 384px;
+}
+
+article>img{
+     display: block;
+     width: 100%;
+     height: 100%;
+     cursor: pointer;
+ }
+
+.header{
+    margin-left: 27%;
+    margin-right: 27%;
+    margin-top: 1.3%;
+    width: 46%;
+    height: 8%;
+    background: url("../images/title.png");
+    background-size: 100% 100%;
+    text-align: center;
+    line-height: 33px;
+    z-index: 210;
+
+    color: #fff;
+    font-weight: 900;
+}
+.canvas{
+}
+
+.canvas>div{
+    position: inherit;
+}
+
+.header_title{
+    position: absolute;
+    top: 13px;
+    left: 5%;
+    height: 8%;
+    width: 7%;
+    font-size: 11px;
+    text-align: right;
+    font-weight: bold;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.lte{
+    background: url("../images/lte.png");
+    background-size: 100% 100%;
+	font-family: "微软雅黑";
+}
+
+.other{
+    background: url("../images/other.png");
+    background-size: 100% 100%;
+    left: 15%;
+	font-family: "微软雅黑";
+}
+
+.lte.active{
+    background: url("../images/btn2.png");
+    background-size: 100% 100%;
+}
+
+.other.active{
+    background: url("../images/btn1.png");
+    background-size: 100% 100%;
+}
+
+.header_deadline{
+    position: absolute;
+    top: 19px;
+    right: 10%;
+    height: 5%;
+    width: 12%;
+    background: url("../images/title_deadline.png");
+    background-size: 100% 100%;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 19px;
+}
+
+.header_deadline>b{
+    color:#f8fb00 ;
+    font-weight: bold;
+}
+
+@media screen and (min-width : 1500px) {
+	.header_title {
+		font-size: 21px;
+        line-height: 61px;
+		top: 32px;
+	}
+
+    .header_deadline{
+        font-size: 19px;
+	    line-height: 37px;
+        top: 40px;
+    }
+
+    .header{
+        font-size: 30px;
+        line-height: 55px;
+
+        margin-left: 30%;
+        margin-right: 30%;
+        margin-top: 1.5%;
+        width: 40%;
+        height: 7%;
+    }
+    
+}

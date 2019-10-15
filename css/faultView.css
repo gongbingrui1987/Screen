@@ -1,0 +1,167 @@
+.difothe_bei {
+    background-image: url("../images/bg2.png");
+    background-size: 100% ;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+/*左边-级别*/
+.fault_left {
+    margin-left: 3%;
+    margin-top: -2%;
+    width: 15%;
+    height: 80%;
+    float: left;
+}
+.fault_left li {
+    width: 90%;
+    height: 6%;
+    clear: both;
+}
+.fault_left div {
+    float: left;
+    width: 6px;
+    height: 6px;
+    margin-left: 10%;
+    background-color: #e60012;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+.fault_left p {
+    float: left;
+    margin-left: 8%;
+    font-size: 9px;
+    color: #97b8c9;
+}
+/*中间部分-服务*/
+.fault_middle{
+    margin-top: 2%;
+    margin-left: 1%;
+    width: 15%;
+    height: 65%;
+    float: left;
+}
+.fault_middle li {
+    width: 95%;
+    height: 8%;
+    clear: both;
+    font-size: 9px;
+    color: #a9d0ff;
+    margin-top: 2%;
+    padding-left: 5%;
+    text-align: center;
+    font-weight: bolder;
+}
+.fault_middle i {
+    display: inline-block;
+    font-style: normal;
+    width: 45%;
+    margin-right: 5%;
+    text-align: right;
+}
+.fault_middle span {
+    display: inline-block;
+    width: 45%;
+    text-align: left;
+    margin-left: 5%;
+}
+/*右边-地图*/
+.fault_right{
+    position: relative;
+    margin-top: 0%;
+    width: 63%;
+    height: 80%;
+    float: left;
+    margin-left: 3%;
+}
+.fault_right svg {
+    width: 103%;
+    height: 288%;
+    margin-top: -46%;
+    margin-left: -26%;
+    transform: rotateX(68deg) rotateY(-2deg) rotateZ(24deg);
+}
+.fault_right .shanxin2 {
+    position: relative;
+    z-index: -5;
+    width: 103%;
+    height: 288%;
+    margin-top: -134%;
+    margin-left: -22%;
+    transform: rotateX(68deg) rotateY(-2deg) rotateZ(24deg);
+}
+.fault_right .shanxin2 path {
+    fill:#000338;
+    stroke: #004042;
+}
+
+.fault_right path {
+    stroke-width: 3px;
+    stroke: #3a4644;
+    fill:#04A604;
+}
+/*卷轴*/
+.fault_shanxin {
+    position: absolute;
+    width: 60px;
+    height: 55px;
+    background-size: 100% ;
+    background-repeat: no-repeat;
+    display:none;
+    cursor:hand;
+}
+
+.fault_shuzi_interval
+{
+	color:#ffffff;
+}
+
+    
+    .fault_shuzi1 {color: #a9d0ff;font-weight:bold;}
+	.fault_shuzi2 {color: #4dffae;font-weight:bold;}
+	.fault_shuzi3 {color: #e27de4;font-weight:bold;}
+	.fault_shuzi4 {color: #ab9913;font-weight:bold;}
+
+
+@media screen and (min-width : 1500px) {
+    .difothe_bei {
+        width: 100%;
+        height: 100%;
+
+    }
+    /*地图*/
+
+/*卷轴*/
+    .fault_shanxin {
+        position: absolute;
+        width: 120px;
+        height: 105px;
+    }
+
+    
+    .fault_shanxin1 { top: 4%;left: 62%;}
+    .fault_shanxin2 { top: 3%;left: 45%;}
+    .fault_shanxin3 { top: 16%;left: 35%;}
+    .fault_shanxin4 { top: 32%;left: 6%;}
+    .fault_shanxin5 { top: 32%;left: 44%;}
+    .fault_shanxin6 { top: 29%;left: 23%;}
+    .fault_shanxin7 { top: 41%;left: 34%;}
+    .fault_shanxin8 { top: 54%;left: -5%;}
+    .fault_shanxin9 { top: 58%;left: 21%;}
+    .fault_shanxin10 { top: 70%;left: -17%;}
+    .fault_shanxin11 { top: 69%;left: 11%;}
+    /*右边*/
+
+    /*左边*/
+
+}
+
+@media screen and (min-width : 1500px) {
+    .fault_right {
+        position: relative;
+        margin-top: 0%;
+        width: 65%;
+        height: 82%;
+        float: left;
+        margin-left: 1%;
+    }
+}
